@@ -42,6 +42,5 @@ const db = getFirestore(app);
 export {
     app,
     appCheck,
-    analytics,
     db
 }
