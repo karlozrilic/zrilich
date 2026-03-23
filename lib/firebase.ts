@@ -25,13 +25,15 @@ if (typeof window !== "undefined") {
 
 const db = getFirestore(app);
 
+let appCheck;
+
 if (typeof window !== "undefined") {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   if (!siteKey) {
     throw new Error('Missing NEXT_PUBLIC_RECAPTCHA_SITE_KEY environment variable');
   }
 
-  initializeAppCheck(app, {
+  appCheck = initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider(siteKey),
     isTokenAutoRefreshEnabled: true,
   });
@@ -40,5 +42,6 @@ if (typeof window !== "undefined") {
 export {
     app,
     analytics,
-    db
+    db,
+    appCheck
 }
