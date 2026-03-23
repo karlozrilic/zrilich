@@ -18,13 +18,6 @@ let analytics;
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-if (typeof window !== "undefined") {
-  // Only run analytics in the browser
-  analytics = getAnalytics(app);
-}
-
-const db = getFirestore(app);
-
 let appCheck;
 
 if (typeof window !== "undefined") {
@@ -39,9 +32,16 @@ if (typeof window !== "undefined") {
   });
 }
 
+if (typeof window !== "undefined") {
+  // Only run analytics in the browser
+  analytics = getAnalytics(app);
+}
+
+const db = getFirestore(app);
+
 export {
     app,
+    appCheck,
     analytics,
-    db,
-    appCheck
+    db
 }
