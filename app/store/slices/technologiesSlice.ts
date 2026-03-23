@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { db } from '../../utils/firebase';
+import { db } from '../../../lib/firebase';
 import { collection, doc, getDocs, getDocsFromServer, orderBy, query, setDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 

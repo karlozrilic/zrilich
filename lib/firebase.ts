@@ -1,4 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from "firebase/firestore";
 
@@ -23,6 +24,18 @@ if (typeof window !== "undefined") {
 }
 
 const db = getFirestore(app);
+
+if (typeof window !== "undefined") {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  if (!siteKey) {
+    throw new Error('Missing NEXT_PUBLIC_RECAPTCHA_SITE_KEY in .env.local');
+  }
+
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider(siteKey),
+    isTokenAutoRefreshEnabled: true,
+  });
+}
 
 export {
     app,
