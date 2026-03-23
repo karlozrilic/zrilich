@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@import "./theme.css";
+
+@import "./components/marquee.css";
+
+@custom-variant dark (&:is(.dark *));
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+@keyframes pulse {
+	0%, 100%{
+		transform: scale(1);
+		opacity:0.1;
+	}
+	50% {
+		transform: scale(1.2);
+		opacity: 0.15;
+	}
+}
+
+.animate-pulse {
+	animation: pulse 6s infinite;
+}
+
+.fade-in {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.typing {
+	border-right: 2px solid currentColor;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.typing.idle {
+	animation: blink 1s step-start infinite;
+}
+
+/* Blinking animation */
+@keyframes blink {
+	50% {
+		border-color: transparent;
+	}
+}
+
+.parallax-layer {
+	position: absolute;
+	will-change: transform;
+	transition: transform 0.2s ease-out;
+}
+
+button {
+	cursor: pointer;
+}
+
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+@theme inline {
+	--animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+  @keyframes blink-cursor {
+  0%, 49% {
+    opacity: 1;
+		}
+  50%, 100% {
+    opacity: 0;
+		}
+	}
+}
