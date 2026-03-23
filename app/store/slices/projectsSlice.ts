@@ -33,7 +33,6 @@ export const fetchProjects = createAsyncThunk('project/fetchProjects', async () 
             console.error("FIRESTORE QUERY FAILED");
             console.error("code:", error.code);
             console.error("message:", error.message);
-            console.error("customData:", error.customData);
         } else if (error instanceof Error) {
             console.error("UNKNOWN ERROR");
             console.error("name:", error.name);
