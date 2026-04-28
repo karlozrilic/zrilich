@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.zrilich.banana",
+      "sha256_cert_fingerprints": [
+        "68:07:E6:81:F5:97:1C:02:A3:FF:C9:B3:6E:85:1F:1F:17:C9:6B:BF:1C:97:E5:75:24:5A:A8:1F:EB:C1:BB:D8"
+      ]
+    }
+  }
+]
