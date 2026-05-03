@@ -12,7 +12,7 @@ export default function Banana() {
 
     return (
         <>
-            {loading && <LoadingScreen />}
+            {/* loading && <LoadingScreen /> */}
             <ProjectPage />
         </>
     );
