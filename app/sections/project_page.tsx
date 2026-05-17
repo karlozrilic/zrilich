@@ -36,7 +36,7 @@ export default function ProjectPage() {
             <div className='relative'>
                 <Image
                     className='relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] mb-5'
-                    src='/images/banana/banana.png'
+                    src='/images/banana/banana.svg'
                     alt='Banana Logo'
                     width={180}
                     height={37}
