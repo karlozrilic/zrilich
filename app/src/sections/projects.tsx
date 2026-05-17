@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
-import { BentoCard, BentoGrid } from '@/app/components/ui/bento-grid';
+import { BentoCard, BentoGrid } from '@/app/src/components/ui/bento-grid';
 import Image from 'next/image';
 import { AspectRatio } from '../components/ui/aspect-ratio';
 

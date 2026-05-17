@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import LoadingScreen from '@/app/sections/loading';
+import LoadingScreen from '@/app/src/sections/loading';
 import Image from 'next/image';
 
 export default function Banana() {

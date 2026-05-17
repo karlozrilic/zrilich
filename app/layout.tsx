@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import '@/app/style/globals.css';
-import Header from './layout_components/header';
-import Footer from './layout_components/footer';
+import '@/app/src/style/globals.css';
+import Header from './src/layout_components/header';
+import Footer from './src/layout_components/footer';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import ReduxProvider from './reduxProvider';

@@ -1,33 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { db } from '../../../lib/firebase';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { ProjectWithTime } from '@/app/interfaces/project/project_with_time';
+import { db } from '@/lib/firebase';
+import { collection, doc, getDocs, getDocsFromServer, orderBy, query, setDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 
-interface ProjectState {
-    data: Project[];
+interface TechnologiesState {
+    data: Technologies[];
     loading: boolean;
     loaded: boolean;
     error: string | null;
 };
 
-const initialState: ProjectState = {
+const initialState: TechnologiesState = {
     data: [],
     loading: false,
     loaded: false,
     error: null,
 };
 
-export const fetchProjects = createAsyncThunk('project/fetchProjects', async () => {
-    let projectsData: Project[] = [];
-
+export const fetchTechnologies = createAsyncThunk('technologies/fetchTechnologies', async () => {
+    let technologiesData: Technologies[] = [];
+    
     try {
-        const projectsSnapshot = await getDocs(query(collection(db, 'projects'), orderBy('updated_at', 'asc')));
-        projectsData = projectsSnapshot.docs.map(doc => {
-            const { updated_at, ...rest } = doc.data() as ProjectWithTime;
-            return { ...rest } as Project;
-        });
+        const technologiesSnapshot = await getDocs(query(collection(db, 'technologies')));
+        technologiesData = technologiesSnapshot.docs.map((doc) => doc.data() as Technologies);
     } catch (error: unknown) {
         if (error instanceof FirebaseError) {
             console.error("FIRESTORE QUERY FAILED");
@@ -42,30 +38,30 @@ export const fetchProjects = createAsyncThunk('project/fetchProjects', async () 
         }
         throw error;
     }
-    
-    return projectsData;
+
+    return technologiesData;
 });
 
-const projectsSlice = createSlice({
-    name: 'projects',
+const technologiesSlice = createSlice({
+    name: 'technologies',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(fetchProjects.pending, (state) => {
+        .addCase(fetchTechnologies.pending, (state) => {
             state.loading = true;
             state.error = null;
         })
-        .addCase(fetchProjects.fulfilled, (state, action: PayloadAction<Project[]>) => {
+        .addCase(fetchTechnologies.fulfilled, (state, action: PayloadAction<Technologies[]>) => {
             state.loading = false;
             state.loaded = true;
             state.data = action.payload;
         })
-        .addCase(fetchProjects.rejected, (state, action) => {
+        .addCase(fetchTechnologies.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.error.message || 'Failed to fetch projects';
+            state.error = action.error.message || 'Failed to fetch technologies';
         });
     },
 });
 
-export default projectsSlice.reducer;
+export default technologiesSlice.reducer;

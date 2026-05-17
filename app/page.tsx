@@ -1,14 +1,14 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from './store/store';
-import { fetchTechnologies } from './store/slices/technologiesSlice';
-import { fetchProjects } from './store/slices/projectsSlice';
-import { fetchExperiences } from './store/slices/experienceSlice';
-import Hero from './sections/hero';
-import Projects from './sections/projects';
-import Contact from './sections/contact';
-import LoadingScreen from './sections/loading';
+import { AppDispatch, RootState } from '@/app/src/store/store';
+import { fetchTechnologies } from '@/app/src/store/slices/technologiesSlice';
+import { fetchProjects } from '@/app/src/store/slices/projectsSlice';
+import { fetchExperiences } from '@/app/src/store/slices/experienceSlice';
+import Hero from './src/sections/hero';
+import Projects from './src/sections/projects';
+import Contact from './src/sections/contact';
+import LoadingScreen from './src/sections/loading';
 
 export default function Home() {
     const dispatch = useDispatch<AppDispatch>();
