@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { RootState } from '../store/store';
+import { RootState } from '@/app/src/store/store';
 import { useSelector } from 'react-redux';
 import { BentoCard, BentoGrid } from '@/app/src/components/ui/bento-grid';
 import Image from 'next/image';
-import { AspectRatio } from '../components/ui/aspect-ratio';
+import { AspectRatio } from '@/app/src/components/ui/aspect-ratio';
 
 export default function Projects() {
     const [activeFilter, setActiveFilter] = useState('private project');
