@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
 import { BentoCard, BentoGrid } from '@/app/components/ui/bento-grid';
+import Image from 'next/image';
+import { AspectRatio } from '../components/ui/aspect-ratio';
 
 export default function Projects() {
     const [activeFilter, setActiveFilter] = useState('private project');
@@ -28,10 +30,18 @@ export default function Projects() {
                                 name={project.title}
                                 description={project.description}
                                 background={
-                                    <img
-                                        src={`/images/${project.image}.png`}
-                                        className='w-full scale-100 [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] transition-all duration-300 ease-out group-hover:scale-115'
-                                    />
+                                    <AspectRatio
+                                        ratio={16 / 9}
+                                        className='flex items-center'
+                                    >
+                                        <Image
+                                            src={`/images/${project.image}.svg`}
+                                            alt={`${project.title} logo`}
+                                            width={100}
+                                            height={100}
+                                            className='w-full h-full object-contain scale-80 [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] transition-all duration-300 ease-out group-hover:scale-100'
+                                        />
+                                    </AspectRatio>
                                 }
                                 href={project.link}
                                 className='project-item'
