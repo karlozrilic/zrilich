@@ -5,10 +5,10 @@ import { AppDispatch, RootState } from '@/app/src/store/store';
 import { fetchTechnologies } from '@/app/src/store/slices/technologiesSlice';
 import { fetchProjects } from '@/app/src/store/slices/projectsSlice';
 import { fetchExperiences } from '@/app/src/store/slices/experienceSlice';
-import Hero from './src/sections/hero';
-import Projects from './src/sections/projects';
-import Contact from './src/sections/contact';
-import LoadingScreen from './src/sections/loading';
+import Hero from '@/app/src/sections/hero';
+import Projects from '@/app/src/sections/projects';
+import Contact from '@/app/src/sections/contact';
+import LoadingScreen from '@/app/src/sections/loading';
 
 export default function Home() {
     const dispatch = useDispatch<AppDispatch>();

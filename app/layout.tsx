@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import '@/app/src/style/globals.css';
-import Header from './src/layout_components/header';
-import Footer from './src/layout_components/footer';
+import Header from '@/app/src/layout_components/header';
+import Footer from '@/app/src/layout_components/footer';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import ReduxProvider from './reduxProvider';
+import ReduxProvider from '@/app/reduxProvider';
 config.autoAddCss = false;
 
 export const metadata: Metadata = {
