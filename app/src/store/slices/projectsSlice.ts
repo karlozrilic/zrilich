@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, Timestamp } from 'firebase/firestore';
 import { ProjectWithTime } from '@/app/src/interfaces/project/project_with_time';
 import { FirebaseError } from 'firebase/app';
 
@@ -9,6 +9,7 @@ interface ProjectState {
     data: Project[];
     loading: boolean;
     loaded: boolean;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 };
 
@@ -16,6 +17,7 @@ const initialState: ProjectState = {
     data: [],
     loading: false,
     loaded: false,
+    status: 'idle',
     error: null,
 };
 
@@ -23,10 +25,19 @@ export const fetchProjects = createAsyncThunk('project/fetchProjects', async () 
     let projectsData: Project[] = [];
 
     try {
-        const projectsSnapshot = await getDocs(query(collection(db, 'projects'), orderBy('updated_at', 'asc')));
+        const projectsSnapshot = await getDocs(query(collection(db, 'projects'), orderBy('order_no', 'asc')));
         projectsData = projectsSnapshot.docs.map(doc => {
-            const { updated_at, ...rest } = doc.data() as ProjectWithTime;
-            return { ...rest } as Project;
+            const data = doc.data() as
+                Omit<Project, 'updated'> & 
+                {
+                    updated: Timestamp;
+                };
+
+            return {
+                ...data,
+                updated: data.updated.toDate().toISOString(),
+                id: doc.ref.id
+            } as Project;
         });
     } catch (error: unknown) {
         if (error instanceof FirebaseError) {
@@ -55,14 +66,17 @@ const projectsSlice = createSlice({
         .addCase(fetchProjects.pending, (state) => {
             state.loading = true;
             state.error = null;
+            state.status = 'loading';
         })
         .addCase(fetchProjects.fulfilled, (state, action: PayloadAction<Project[]>) => {
             state.loading = false;
             state.loaded = true;
+            state.status = 'succeeded';
             state.data = action.payload;
         })
         .addCase(fetchProjects.rejected, (state, action) => {
             state.loading = false;
+            state.status = 'failed';
             state.error = action.error.message || 'Failed to fetch projects';
         });
     },

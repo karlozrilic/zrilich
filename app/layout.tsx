@@ -5,6 +5,10 @@ import Footer from '@/app/src/layout_components/footer';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import ReduxProvider from '@/app/reduxProvider';
+import { SidebarProvider } from '@/app/src/components/ui/sidebar';
+import { TooltipProvider } from '@/app/src/components/ui/tooltip'
+import GlobalDataLoader from '@/app/global_data_loader';
+import LayoutContent from '@/app/layout_content';
 config.autoAddCss = false;
 
 export const metadata: Metadata = {
@@ -38,11 +42,21 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
 			<body
 				className={`bg-background text-foreground font-sans transition-colors duration-500 antialiased`}
 			>
-				<ReduxProvider>
-					<Header />
-					{children}
-					<Footer />
-				</ReduxProvider>
+				<SidebarProvider
+					defaultOpen={false}
+					className='flex-col'
+				>
+					<ReduxProvider>
+						<GlobalDataLoader />
+						<TooltipProvider>
+							<LayoutContent>
+								<Header />
+								{children}
+								<Footer />
+							</LayoutContent>
+						</TooltipProvider>
+					</ReduxProvider>
+				</SidebarProvider>
 			</body>
 		</html>
 	);

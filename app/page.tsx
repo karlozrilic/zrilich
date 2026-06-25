@@ -1,26 +1,15 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/app/src/store/store';
-import { fetchTechnologies } from '@/app/src/store/slices/technologiesSlice';
-import { fetchProjects } from '@/app/src/store/slices/projectsSlice';
-import { fetchExperiences } from '@/app/src/store/slices/experienceSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/src/store/store';
 import Hero from '@/app/src/sections/hero';
 import Projects from '@/app/src/sections/projects';
 import Contact from '@/app/src/sections/contact';
 import LoadingScreen from '@/app/src/sections/loading';
 
 export default function Home() {
-    const dispatch = useDispatch<AppDispatch>();
     const projects = useSelector((state: RootState) => state.projects);
     const [loaded, setLoaded] = useState(projects.loaded || false);
-
-    // Fetch data once on mount
-    useEffect(() => {
-        dispatch(fetchTechnologies());
-        dispatch(fetchProjects());
-        dispatch(fetchExperiences());
-    }, [dispatch]);
 
     useEffect(() => {
         setLoaded(projects.loaded)

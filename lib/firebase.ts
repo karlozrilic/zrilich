@@ -1,7 +1,8 @@
-import { initializeApp, getApps } from "firebase/app";
-import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps } from 'firebase/app';
+import { AppCheck, initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { getAuth } from 'firebase/auth';
+import { Analytics, getAnalytics } from 'firebase/analytics';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,11 +15,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let analytics;
+let analytics: Analytics;
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-let appCheck;
+let appCheck: AppCheck;
 
 if (typeof window !== "undefined") {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
@@ -32,15 +33,17 @@ if (typeof window !== "undefined") {
   });
 }
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   // Only run analytics in the browser
   analytics = getAnalytics(app);
 }
 
+const auth = getAuth(app)
 const db = getFirestore(app);
 
 export {
     app,
     appCheck,
+    auth,
     db
 }
