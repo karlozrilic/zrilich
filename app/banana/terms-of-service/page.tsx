@@ -14,6 +14,7 @@ export default function Banana() {
         <>
             {/* loading && <LoadingScreen /> */}
             <main className='flex min-h-screen flex-col items-center justify-center pt-24 pb-10 p-4'>
+                tst
                 <div className='max-w-3xl w-full'>
                     <div className='flex justify-center pb-16'>
                         <Image
