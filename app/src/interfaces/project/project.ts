@@ -1,8 +1,10 @@
-interface Project {
-    category: string,
-    title: string,
-    description: string,
-    image: string,
-    link: string,
-    tags: string[]
+export type Project = {
+    id: string;
+    category: string;
+    title: string;
+    content: string;
+    image: string;
+    link: string;
+    tags: string[];
+    updated: string;
 }
