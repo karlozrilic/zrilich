@@ -83,4 +83,9 @@ const projectsSlice = createSlice({
     },
 });
 
+// the shared Firestore collection also holds work projects, this site only shows its own
+export function ownProjects(data: Project[]) {
+    return data.filter(project => project.tags.map(tag => tag.toLowerCase()).includes('private project'));
+}
+
 export default projectsSlice.reducer;

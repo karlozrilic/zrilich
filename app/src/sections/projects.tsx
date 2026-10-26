@@ -5,11 +5,12 @@ import { BentoCard, BentoGrid } from '@/app/src/components/ui/bento-grid';
 import Image from 'next/image';
 import { AspectRatio } from '@/app/src/components/ui/aspect-ratio';
 import SectionHeading from '@/app/src/components/custom/section_heading';
+import { ownProjects } from '@/app/src/store/slices/projectsSlice';
 
 export default function Projects() {
     const { data } = useSelector((state: RootState) => state.projects);
     // filtered during render, not in an effect, so the cards end up in the prerendered HTML
-    const projects = data.filter(project => project.tags.map(tag => tag.toLowerCase()).includes('private project'));
+    const projects = ownProjects(data);
 
     return (
         <section className='border-t scroll-mt-[68px] fade-in' id='projects'>
@@ -27,10 +28,13 @@ export default function Projects() {
                                     className='flex items-center bg-neutral-100 dark:bg-neutral-200'
                                 >
                                     <Image
-                                        src={`/images/${project.image}.svg`}
+                                        src={`/images/projects/${project.image}.svg`}
                                         alt={`${project.title} logo`}
                                         width={100}
                                         height={100}
+                                        onError={(e) => {
+                                            e.currentTarget.src = `/images/projects/${project.image}.png`;
+                                        }}
                                         className='w-full h-full object-contain scale-75 transition-transform duration-300 ease-out group-hover:scale-80'
                                     />
                                 </AspectRatio>
