@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useWebHaptics } from 'web-haptics/react';
 import { RootState } from '@/app/src/store/store';
 import { ownProjects } from '@/app/src/store/slices/projectsSlice';
+import { Project } from '../interfaces/project/project';
 
 // below this a scrolling strip would just show the same few icons on repeat
 const MARQUEE_MIN = 4;
@@ -21,7 +22,7 @@ function AppIcon({ project }: { project: Project }) {
         >
             <span className='size-24 md:size-28 rounded-[22%] bg-neutral-100 dark:bg-neutral-200 shadow-[0_1px_2px_rgba(0,0,0,.06),0_8px_24px_rgba(0,0,0,.08)] p-4 transition-transform duration-300 ease-out group-hover:-translate-y-1'>
                 <Image
-                    src={`/images/${project.image}.svg`}
+                    src={`/images/projects/${project.image}.svg`}
                     alt=''
                     width={112}
                     height={112}
