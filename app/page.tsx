@@ -30,36 +30,8 @@ export default function Home() {
             rootMargin: '0px 0px -15% 0px',
         });
         faders.forEach(f => observer.observe(f));
-        
-
-        // PARALLAX
-        const parallaxEls = document.querySelectorAll<HTMLDivElement>('.parallax-layer');
-        window.addEventListener('scroll', onScroll);
-
-        function onScroll() {
-            const scrollTop = window.pageYOffset;
-            parallaxEls.forEach(element => {
-                const speed = Number(element.dataset.speed);
-                const baseTop = element.dataset.baseTop;
-                const baseBottom = element.dataset.baseBottom;
-                const offset = scrollTop * speed * 0.9;
-
-                if (baseTop !== undefined) {
-                    element.style.top = `calc(${baseTop}% + ${offset}px)`;
-                }
-
-                if (baseBottom !== undefined) {
-                    element.style.bottom = `calc(${baseBottom}% - ${offset}px)`;
-                }
-
-                element.classList.remove('hidden');
-            });
-        }
-        
-        onScroll();
 
         return () => {
-            window.removeEventListener('scroll', onScroll);
             faders.forEach(f => observer.unobserve(f));
         }
     }, []);

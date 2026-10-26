@@ -2,6 +2,7 @@ import { db } from '@/lib/firebase';
 import { auth } from '@/lib/firebase';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+import { ADMIN_FLAG } from '@/hooks/useAuth';
 
 export async function loginGoogle() {
     const provider = new GoogleAuthProvider();
@@ -20,6 +21,8 @@ export async function loginGoogle() {
         await auth.signOut();
         throw new Error('Email not authorized');
     }
+
+    localStorage.setItem(ADMIN_FLAG, '1');
 }
 
 export async function logout() {

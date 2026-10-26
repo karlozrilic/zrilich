@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Fraunces } from 'next/font/google';
 import '@/app/src/style/globals.css';
 import Header from '@/app/src/layout_components/header';
 import Footer from '@/app/src/layout_components/footer';
@@ -9,11 +10,14 @@ import { SidebarProvider } from '@/app/src/components/ui/sidebar';
 import { TooltipProvider } from '@/app/src/components/ui/tooltip'
 import GlobalDataLoader from '@/app/global_data_loader';
 import LayoutContent from '@/app/layout_content';
+import { getBuildState } from '@/app/src/store/build_state';
 config.autoAddCss = false;
+
+const display = Fraunces({ subsets: ['latin', 'latin-ext'], variable: '--font-fraunces', preload: false });
 
 export const metadata: Metadata = {
     title: 'ZrilicH',
-    description: ``,
+    description: 'A collection of websites and mobile apps designed, built and shipped by ZrilicH.',
 	icons: {
 		icon: [
 			{ url: '/favicon/favicon.ico', type: 'image/x-icon', rel: 'icon' },
@@ -29,7 +33,9 @@ export const metadata: Metadata = {
 	}
 };
 
-export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
+export default async function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
+	const preloadedState = await getBuildState();
+
 	return (
 		<html lang='en' data-scroll-behavior='smooth' suppressHydrationWarning>
 			<head>
@@ -40,13 +46,13 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
 				/>
 			</head>
 			<body
-				className={`bg-background text-foreground font-sans transition-colors duration-500 antialiased`}
+				className={`${display.variable} bg-background text-foreground font-sans transition-colors duration-500 antialiased`}
 			>
 				<SidebarProvider
 					defaultOpen={false}
 					className='flex-col'
 				>
-					<ReduxProvider>
+					<ReduxProvider preloadedState={preloadedState}>
 						<GlobalDataLoader />
 						<TooltipProvider>
 							<LayoutContent>

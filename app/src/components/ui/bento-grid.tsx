@@ -3,9 +3,10 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { Badge } from './badge'
 
+// runs during prerender too, so no window here
+// shortcut: every absolute link opens a new tab, add the site's domain here if projects ever link back to it
 function isExternalLink(link: string): boolean {
-	const currentHost = window.location.hostname;
-	return !link.includes(currentHost);
+	return /^https?:\/\//.test(link);
 }
 
 interface BentoGridProps extends ComponentPropsWithoutRef<'div'> {
@@ -50,18 +51,18 @@ const BentoCard = ({
 			// light styles
 			'bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]',
 			// dark styles
-			'dark:bg-background transform-gpu dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] dark:[border:1px_solid_rgba(255,255,255,.1)]',
+			'dark:bg-background transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)]',
 			className
 		)}
 		{...props}
 	>
 		<a 
 			href={href}
-			target={href.startsWith('http') && isExternalLink(href) ? '_blank' : '_self'}
+			target={isExternalLink(href) ? '_blank' : '_self'}
 			key={name}
 		>
 			<div>{background}</div>
-			<div className='p-3 md:p-4'>
+			<div className='relative z-10 bg-background p-3 md:p-4'>
 				<div className='pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 mb-2 md:mb-0'>
 					<h3 className='text-xl font-semibold text-neutral-700 dark:text-neutral-300'>
 						{name}

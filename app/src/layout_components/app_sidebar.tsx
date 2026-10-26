@@ -30,7 +30,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/app/src/components/ui/avatar';
 import { useEffect, useState } from 'react';
 import { useIsMobile } from '@/hooks/use_mobile';
-import { logout } from '@/helpers/firebase';
 import { useRouter } from 'next/navigation';
  
 export function AppSidebar() {
@@ -47,6 +46,7 @@ export function AppSidebar() {
     }, [user, loading]);
 
     async function adminLogout() {
+        const { logout } = await import('@/helpers/firebase');
         await logout();
         toggleSidebar();
     }

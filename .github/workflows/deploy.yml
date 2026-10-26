@@ -3,8 +3,14 @@ name: Build & Deploy
 on:
   workflow_dispatch:
 
+# a newer publish replaces one that's still running
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 permissions:
   contents: write
+  actions: write
   pages: write
   id-token: write
 
@@ -67,3 +73,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Delete artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: github-pages

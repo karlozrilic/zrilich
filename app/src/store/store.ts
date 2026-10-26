@@ -1,11 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import projectsReducer from '@/app/src/store/slices/projectsSlice';
 
-export const store = configureStore({
-    reducer: {
-        projects: projectsReducer,
-    }
+const reducer = combineReducers({
+    projects: projectsReducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const makeStore = (preloadedState?: Partial<RootState>) => configureStore({ reducer, preloadedState });
+
+export type RootState = ReturnType<typeof reducer>;
+export type AppDispatch = ReturnType<typeof makeStore>['dispatch'];

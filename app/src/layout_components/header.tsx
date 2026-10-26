@@ -111,6 +111,7 @@ export default function Header() {
 					<AnimatedThemeToggler onClickCapture={themeToggle} className='hidden md:block' />
 					<button
 						ref={menuButtonRef}
+						aria-label='Open menu'
 						className='ml-4 p-2 rounded md:hidden'
 					>
 						<FontAwesomeIcon icon={faBars} />
@@ -122,7 +123,7 @@ export default function Header() {
 			<div ref={drawerRef} className='fixed top-0 right-0 sm:w-64 w-full h-full bg-background text-foreground shadow-xl p-6 flex flex-col space-y-6 transform translate-x-full transition-transform duration-300 z-56'>
 				<div className='flex justify-between items-center'>
 					<span className='text-xl font-bold'>{headerTitle}</span>
-					<button ref={closeDrawerButtonRef} className='text-2xl hover:text-primary'>✕</button>
+					<button ref={closeDrawerButtonRef} aria-label='Close menu' className='text-2xl hover:text-primary'>✕</button>
 				</div>
 				{links()}
 				<AnimatedThemeToggler onClickCapture={themeToggle} />
