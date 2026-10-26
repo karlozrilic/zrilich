@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { useWebHaptics } from 'web-haptics/react';
 import { RootState } from '@/app/src/store/store';
 import { ownProjects } from '@/app/src/store/slices/projectsSlice';
-import { Project } from '../interfaces/project/project';
 
 // below this a scrolling strip would just show the same few icons on repeat
 const MARQUEE_MIN = 4;
